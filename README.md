@@ -16,24 +16,22 @@
 ### Association
 - has_many :items
 - has_many :orders
+- has_many :addresses
 
 
 ## items テーブル
 
-| Column           | Type       | Options     |
-| ---------------- | ---------- | ----------- |
-| item_name        | string     | null: false |
-| item_description | text       | null: false |
-| category         | string     | null: false |
-| item_condition   | string     | null: false |
-| shipping_fee     | string     | null: false |
-| shipping_origin  | string     | null: false |
-| days_to_ship     | string     | null: false |
-| price            | integer    | null: false,\333~\9,999,999, 半角数値 |
-| sales_commission | decimal    | null: false |
-| sales_profit     | decimal    | null: false |
-| status           | boolean    | null: false |
-| user_id          | references | null: false, foreign_key: true |
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| item_name          | string     | null: false |
+| item_description   | text       | null: false |
+| category_id        | string     | null: false |
+| item_condition_id  | integer    | null: false |
+| shipping_fee_id    | integer    | null: false |
+| shipping_origin_id | integer    | null: false |
+| days_to_ship_id    | integer    | null: false |
+| price              | integer    | null: false,\333~\9,999,999, 半角数値 |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -41,7 +39,6 @@
 
 ### Supplement
 - 画像投稿の実装は、ActiveStorageを使用すること（画像の複数枚投稿は追加実装となるため、この段階では、画像1枚での出品機能を実装する）。
-
 
 
 ## orders テーブル
@@ -54,9 +51,22 @@
 | street_address | string     | null: false                          |
 | building_name  | string     |                                      |
 | phone_number   | integer    | null: false,10桁以上11桁以内の半角数値|
-| user_id        | references | null: false, foreign_key: true       |
-| item_id        | references | null: false, foreign_key: true       |
+| user           | references | null: false, foreign_key: true       |
+| order          | references | null: false, foreign_key: true       |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :addresses
+
+
+## addresses テーブル
+
+| Column         | Type       | Options                              |
+| -------------- | ---------- | ------------------------------------ |
+| user           | references | null: false, foreign_key: true       |
+| item           | references | null: false, foreign_key: true       |
+
+### Association
+- belongs_to :user
+- belongs_to :order
