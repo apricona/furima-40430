@@ -5,7 +5,7 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | email              | string | null: false, unique: true |
-| encrypted_password | string | null: false ,length: { minimum: 6 }半角英数字混合|
+| encrypted_password | string | null: false ,6文字以上, 半角英数字混合|
 | nickname           | string | null: false |
 | last_name          | string | null: false, 全角（漢字・ひらがな・カタカナ）|
 | first_name         | string | null: false, 全角（漢字・ひらがな・カタカナ）|
@@ -54,8 +54,8 @@
 | street_address | string     | null: false                          |
 | building_name  | string     |                                      |
 | phone_number   | integer    | null: false,10桁以上11桁以内の半角数値|
-| user_id (FK)   | references | null: false, foreign_key: true       |
-| item_id (FK)   | references | null: false, foreign_key: true       |
+| user_id        | references | null: false, foreign_key: true       |
+| item_id        | references | null: false, foreign_key: true       |
 
 ### Association
 - belongs_to :user
