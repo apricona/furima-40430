@@ -9,10 +9,7 @@ class User < ApplicationRecord
 
   validates :nickname, :date_of_birth, presence: true
 
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,}\z/i }
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 
-
-  has_many :items
-  has_many :orders
 end
 
