@@ -15,6 +15,6 @@ class Category < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :categorys
+  has_many :items
 
   end
