@@ -16,6 +16,7 @@ class Item < ApplicationRecord
             :days_to_ship_id,
             :price,
             :user,
+            :image,
             presence: true
 
   validates :category_id, 

@@ -9,5 +9,11 @@ FactoryBot.define do
     last_name_kana        {'テスト'}
     first_name_kana       {'タロウ'}
     date_of_birth         {'1990-01-01'}
+
+    factory :user_with_items do
+      after(:create) do |user|
+        create(:item, user: user)
+      end
+    end
   end
 end
