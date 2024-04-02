@@ -35,6 +35,8 @@
 ### Association
 - belongs_to :user
 - has_one :oder
+  has_one_attached :image
+
 
 ### Supplement
 - 画像投稿の実装は、ActiveStorageを使用すること（画像の複数枚投稿は追加実装となるため、この段階では、画像1枚での出品機能を実装する）。
