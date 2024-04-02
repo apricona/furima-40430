@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :category
   belongs_to :item_condition
   belongs_to :shipping_fee
+  belongs_to :prefecture
   belongs_to :days_to_ship
 
   validates :item_name,
@@ -15,14 +16,16 @@ class Item < ApplicationRecord
             :prefecture_id,
             :days_to_ship_id,
             :price,
-            :user,
             :image,
             presence: true
 
   validates :category_id, 
-            :item_condition_id, numericality: { other_than: 1 } 
+            :item_condition_id,
+            :shipping_fee_id,
+            :prefecture_id,
+            :days_to_ship_id,
+            numericality: { other_than: 1 } 
 
   validates :price, 
-            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 },
-            format: { with: /\A[a-zA-Z0-9]+\z/ }
+            numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
 end
