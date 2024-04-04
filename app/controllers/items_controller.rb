@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update,]
+  before_action :move_to_index, only: [:edit]
 
 
   def index
@@ -55,4 +56,11 @@ class ItemsController < ApplicationController
       :image,
     ).merge(user_id: current_user.id)
   end
+
+  def move_to_index
+    unless current_user.id == @item.user_id
+      redirect_to action: :index
+    end
+  end
+
 end
