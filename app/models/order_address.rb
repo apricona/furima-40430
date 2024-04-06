@@ -18,13 +18,12 @@ class OrderAddress
     validates :prefecture_id, numericality: { other_than: 1 } 
     validates :city
     validates :street_address
-    validates :phone_number, numericality: {only_integer: true,  greater_than_or_equal_to: 10**10, less_than_or_equal_to: 10**11 - 1 }
-    validates :order_id
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は10桁または11桁の半角数値で入力してください" }
   end
 
   def save
     # 各テーブルにデータを保存する処理を書く
-    order = Orders.create(user_id: user_id, item_id: item_id)
+    order = Order.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, street_address: street_address, building_name: building_name, phone_number: phone_number, order_id: order.id)
   end
 end
