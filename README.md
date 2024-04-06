@@ -55,9 +55,7 @@
 | order          | references | null: false, foreign_key: true  |
 
 ### Association
-- belongs_to :user
-- belongs_to :item
-- has_one :address
+- belongs_to :order
 
 
 ## orders テーブル
@@ -68,4 +66,6 @@
 | item           | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :order
+- belongs_to :user
+- belongs_to :item
+- has_one :address
