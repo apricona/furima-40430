@@ -8,7 +8,8 @@ class OrderAddress
                 :street_address, 
                 :building_name, 
                 :phone_number, 
-                :order_id
+                :order_id,
+                :token
 
 
   with_options presence: true do
@@ -19,6 +20,7 @@ class OrderAddress
     validates :city
     validates :street_address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "は10桁または11桁の半角数値で入力してください" }
+    validates :token
   end
 
   def save
