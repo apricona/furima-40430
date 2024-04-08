@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   include ApplicationHelper
+  before_action :authenticate_user!, only: [:index]
 
   before_action :move_to_index, only: [:index]
+
 
 
   def index
@@ -51,7 +53,7 @@ def move_to_index
   @item = Item.find(params[:item_id])
   @user = @item.user
 
-  if current_user.id == @user || sold_out?(@item)
-    redirect_to action: :index
+  if current_user.id == @user.id || current_user.id != @user.id && sold_out?(@item)
+    redirect_to root_path
   end
 end
