@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include ApplicationHelper
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit]
@@ -6,6 +7,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all.order("created_at DESC")
+    
   end
 
   def new
@@ -44,7 +46,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
   private
 
   def set_item
@@ -66,7 +67,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless current_user.id == @item.user_id
+    if current_user.id != @item.user_id || sold_out?(@item)
       redirect_to action: :index
     end
   end
