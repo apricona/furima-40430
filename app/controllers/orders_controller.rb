@@ -1,19 +1,17 @@
 class OrdersController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!, only: [:index]
-
+  before_action :set_item, only: [:index, :create, ]
   before_action :move_to_index, only: [:index]
 
 
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
@@ -27,6 +25,10 @@ class OrdersController < ApplicationController
 end
 
 private
+
+def set_item
+  @item = Item.find(params[:item_id])
+end
 
 def order_params
   params.require(:order_address).permit(
@@ -50,10 +52,8 @@ def pay_item
 end
 
 def move_to_index
-  @item = Item.find(params[:item_id])
   @user = @item.user
-
-  if current_user.id == @user.id || current_user.id != @user.id && sold_out?(@item)
+  if current_user.id == @user.id || sold_out?(@item)
     redirect_to root_path
   end
 end

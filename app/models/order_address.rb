@@ -8,7 +8,6 @@ class OrderAddress
                 :street_address, 
                 :building_name, 
                 :phone_number, 
-                :order_id,
                 :token
 
 
